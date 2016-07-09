@@ -38,3 +38,29 @@ print "Number of people with poi == 1: ", num_of_poi
 ### Total value of the stock belonging to James Prentice
 
 print "Total value of the stock belonging to James Prentice:", enron_data["Prentice James".upper()]["total_stock_value"]
+
+### all features available for one person
+
+for feature in enron_data["Prentice James".upper()].keys():
+    print feature
+
+### Number of email messages from Wesley Colwell to persons of interest
+
+print "Number of email messages from Wesley Colwell to persons of interest: ", enron_data["Colwell Wesley".upper()]["from_this_person_to_poi"]
+
+### Value of stock options exercised by Jeffrey Skilling:
+
+print "Value of stock options exercised by Jeffrey Skilling:", enron_data["Skilling Jeffrey K".upper()]["exercised_stock_options"] 
+
+
+
+
+
+
+
+
+
+
+
+
+
