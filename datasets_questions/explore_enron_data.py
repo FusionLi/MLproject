@@ -30,8 +30,8 @@ print "Number of features for one person:", len(enron_data["SKILLING JEFFREY K"]
 ### Number of people with poi == 1
 
 num_of_poi = 0
-for feature in enron_data.itervalues():
-	if feature["poi"] == 1:
+for name in enron_data.itervalues():
+	if name["poi"] == 1:
 		num_of_poi += 1
 print "Number of people with poi == 1: ", num_of_poi
 
@@ -52,12 +52,39 @@ print "Number of email messages from Wesley Colwell to persons of interest: ", e
 
 print "Value of stock options exercised by Jeffrey Skilling:", enron_data["Skilling Jeffrey K".upper()]["exercised_stock_options"] 
 
+### Total payments got by Lay, Skilling and Fastow
 
+print "Lay:", enron_data["Lay Kenneth L".upper()]["total_payments"]
+print "Skilling:", enron_data["Skilling Jeffrey K".upper()]["total_payments"] 
+print "Fastow:", enron_data["Fastow Andrew S".upper()]["total_payments"]
 
+### Number of folks have quantified salary and number of folks have known email address
 
+num_of_salary = 0
+num_of_email = 0
+for name in enron_data.itervalues():
+    if isinstance(name["salary"], int):
+        num_of_salary += 1
+    if name["email_address"] != "NaN":
+        num_of_email += 1
+print "Number of folks have quantified salary:", num_of_salary
+print "Number of folks have known email address:", num_of_email
 
+### Number of people have "NaN" for their total payments and the percentage of E+F as a whole
 
+num_of_unknown_payment = 0
+for name in enron_data.itervalues():
+    if isinstance(name["total_payments"], str):
+        num_of_unknown_payment += 1
+print "Number of people have 'NaN' for their total payments:", num_of_unknown_payment, "and the percentage:", float(num_of_unknown_payment)/float(len(enron_data))
 
+### Number of POIs in the E+F dataset have "NaN" for their total payments and the percentage of POI's as a whole
+
+num_of_unknown_payment_from_poi = 0
+for name in enron_data.itervalues():
+    if name["poi"] == 1 and isinstance(name["total_payments"], str):
+        num_of_unknown_payment_from_poi += 1
+print "Number of POIs in the E+F dataset have 'NaN' for their total payments", num_of_unknown_payment_from_poi, "and the percentage:", float(num_of_unknown_payment_from_poi)/float(num_of_poi)
 
 
 
