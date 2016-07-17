@@ -27,14 +27,12 @@ ages_train, ages_test, net_worths_train, net_worths_test = train_test_split(ages
 ### the plotting code below works, and you can see what your regression looks like
 
 
-
-
-
-
-
-
-
-
+from sklearn.linear_model import LinearRegression
+reg = LinearRegression()
+reg.fit(ages_train, net_worths_train)
+print "Slope of regression line for training set with outliers:", reg.coef_[0][0]
+print "R score on training set with outliers:", reg.score(ages_train, net_worths_train)
+print "R score on testing set with outliers:", reg.score(ages_test, net_worths_test)
 
 try:
     plt.plot(ages, reg.predict(ages), color="blue")
@@ -68,7 +66,10 @@ if len(cleaned_data) > 0:
     ### refit your cleaned data!
     try:
         reg.fit(ages, net_worths)
-        plt.plot(ages, reg.predict(ages), color="blue")
+        print "Slope of regression line for training set without outliers:", reg.coef_[0][0]
+        print "R score on training set without outliers:", reg.score(ages, net_worths)
+        print "R score on testing set without outliers:", reg.score(ages_test, net_worths_test)
+        plt.plot(ages, reg.predict(ages), color="blue")      
     except NameError:
         print "you don't seem to have regression imported/created,"
         print "   or else your regression object isn't named reg"
