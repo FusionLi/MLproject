@@ -48,8 +48,9 @@ data_dict.pop("TOTAL", 0)
 ### can be any key in the person-level dictionary (salary, director_fees, etc.) 
 feature_1 = "salary"
 feature_2 = "exercised_stock_options"
+feature_3 = "total_payments"
 poi  = "poi"
-features_list = [poi, feature_1, feature_2]
+features_list = [poi, feature_1, feature_2, feature_3]
 data = featureFormat(data_dict, features_list )
 poi, finance_features = targetFeatureSplit( data )
 
@@ -58,13 +59,41 @@ poi, finance_features = targetFeatureSplit( data )
 ### you'll want to change this line to 
 ### for f1, f2, _ in finance_features:
 ### (as it's currently written, the line below assumes 2 features)
-for f1, f2 in finance_features:
+for f1, f2, _ in finance_features:
     plt.scatter( f1, f2 )
 plt.show()
 
 ### cluster here; create predictions of the cluster labels
 ### for the data and store them to a list called pred
 
+from sklearn.cluster import KMeans
+clf = KMeans(n_clusters = 2)
+clf.fit(finance_features)
+pred = clf.predict(finance_features)
+
+### Get Maximum and Minimum of exercised stock options
+maximum_of_exercised_stock_options = 0
+minimum_of_exercised_stock_options = float("inf")
+for key in data_dict:
+    if data_dict[key][feature_2] != "NaN" and data_dict[key][feature_2] > maximum_of_exercised_stock_options:
+        maximum_of_exercised_stock_options = data_dict[key][feature_2]
+    if data_dict[key][feature_2] != "NaN" and data_dict[key][feature_2] > 0 and \
+    data_dict[key][feature_2] < minimum_of_exercised_stock_options:
+        minimum_of_exercised_stock_options = data_dict[key][feature_2]
+print "Maximum of exercised stock options:", maximum_of_exercised_stock_options
+print "Minimum of exercised stock options:", minimum_of_exercised_stock_options
+
+### Get Maximum and Minimum of salary
+maximum_of_salary = 0
+minimum_of_salary = float("inf")
+for key in data_dict:
+    if data_dict[key][feature_1] != "NaN" and data_dict[key][feature_1] > maximum_of_salary:
+        maximum_of_salary = data_dict[key][feature_1]
+    if data_dict[key][feature_1] != "NaN" and data_dict[key][feature_1] > 0 and \
+    data_dict[key][feature_1] < minimum_of_salary:
+        minimum_of_salary = data_dict[key][feature_1]
+print "Maximum of salary:", maximum_of_salary
+print "Minimum of salary:", minimum_of_salary
 
 
 
