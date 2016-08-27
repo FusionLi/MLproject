@@ -39,5 +39,21 @@ labels_train   = labels_train[:150]
 
 ### your code goes here
 
+from sklearn import tree
+clf = tree.DecisionTreeClassifier()
+clf.fit(features_train, labels_train)
+
+prediction = clf.predict(features_test)
+from sklearn.metrics import accuracy_score
+accuracy = accuracy_score(prediction, labels_test)
+print "Accuracy of overfit decision tree:", accuracy
+
+number_of_feature = 0
+for importance in clf.feature_importances_:
+	if importance > 0.2:
+		print "Number of feature:", number_of_feature # 33614: sshacklensf 14343: cgermannsf
+		print "Importance of feature:", importance 
+	number_of_feature += 1
 
 
+#print "Corresponding feature name:", vectorizer.get_feature_names()[14343]

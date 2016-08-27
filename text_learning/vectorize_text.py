@@ -42,7 +42,7 @@ for name, from_person in [("sara", from_sara), ("chris", from_chris)]:
         ### only look at first 200 emails when developing
         ### once everything is working, remove this line to run over full dataset
         # temp_counter += 1
-        if temp_counter < 100:
+        if temp_counter < 200:
             path = os.path.join('..', path[:-1])
             print path
             email = open(path, "r")
@@ -52,7 +52,8 @@ for name, from_person in [("sara", from_sara), ("chris", from_chris)]:
             #print stemmed_string
             ### use str.replace() to remove any instances of the words
             ### ["sara", "shackleton", "chris", "germani"]
-            stopwords = ["sara", "shackleton", "chris", "germani"]
+            # add removed words "sshacklensf" and "cgermannsf" from feature selection section
+            stopwords = ["sara", "shackleton", "chris", "germani", "sshacklensf", "cgermannsf"] 
             for word in stopwords:            
                 stemmed_string = stemmed_string.replace(word, "")
             #print stemmed_string
