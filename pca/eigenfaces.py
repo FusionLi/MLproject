@@ -144,3 +144,9 @@ eigenface_titles = ["eigenface %d" % i for i in range(eigenfaces.shape[0])]
 plot_gallery(eigenfaces, eigenface_titles, h, w)
 
 pl.show()
+
+###############################################################################
+# PCA section
+
+print "First component:", pca.explained_variance_ratio_[0]
+print "Second component:", pca.explained_variance_ratio_[1]
